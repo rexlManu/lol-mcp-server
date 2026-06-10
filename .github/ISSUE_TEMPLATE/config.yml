@@ -1,0 +1,9 @@
+name: Config
+blank_issues_enabled: false
+contact_links:
+  - name: Riot API Documentation
+    url: https://developer.riotgames.com/apis
+    about: Official Riot Games API documentation
+  - name: MCP Specification
+    url: https://modelcontextprotocol.io
+    about: Model Context Protocol specification

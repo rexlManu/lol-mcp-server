@@ -1,6 +1,75 @@
 # League of Legends MCP Server
 
+[![npm version](https://img.shields.io/npm/v/lol-mcp-server.svg)](https://www.npmjs.com/package/lol-mcp-server)
+[![CI](https://github.com/rexlManu/lol-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/rexlManu/lol-mcp-server/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 MCP server exposing 30 tools for League of Legends player analysis, match review, and training-plan generation.
+
+## Installation
+
+### Via npm (recommended)
+
+```bash
+npm install -g lol-mcp-server
+```
+
+### Via npx (no install)
+
+```bash
+npx lol-mcp-server
+```
+
+### From source
+
+```bash
+git clone https://github.com/rexlManu/lol-mcp-server.git
+cd lol-mcp-server
+pnpm install
+pnpm build
+```
+
+## Setup
+
+```bash
+cp .env.example .env
+# Edit .env and add your RIOT_API_KEY
+```
+
+Get your Riot API key at https://developer.riotgames.com/
+
+## MCP Client Configuration
+
+Add to your MCP client config (Cursor, Claude Desktop, etc.):
+
+```json
+{
+  "mcpServers": {
+    "league-of-legends": {
+      "command": "lol-mcp-server",
+      "env": {
+        "RIOT_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+Or if installed from source:
+
+```json
+{
+  "mcpServers": {
+    "league-of-legends": {
+      "command": "node",
+      "args": ["/path/to/lol-mcp-server/dist/index.js"],
+      "env": {
+        "RIOT_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
 
 ## Stack
 
@@ -11,22 +80,6 @@ MCP server exposing 30 tools for League of Legends player analysis, match review
 - **Scraping:** cheerio (Lolalytics, League Wiki)
 - **Static data:** Data Dragon API
 - **Testing:** vitest
-
-## Setup
-
-```bash
-pnpm install
-cp .env.example .env
-# Edit .env and add your RIOT_API_KEY
-```
-
-## Environment Variables
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `RIOT_API_KEY` | Yes | Riot Games API key from https://developer.riotgames.com/ |
-
-## Development
 
 ```bash
 pnpm dev          # Run with tsx (hot reload)

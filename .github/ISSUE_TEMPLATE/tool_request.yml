@@ -1,0 +1,68 @@
+name: New Tool Request
+description: Request a new MCP tool to be added
+title: "[Tool]: "
+labels: ["enhancement", "new-tool"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request a new MCP tool for League of Legends data.
+  
+  - type: input
+    id: tool-name
+    attributes:
+      label: Tool Name
+      description: Suggested tool name (e.g., lol_get_champion_stats)
+      placeholder: lol_get_...
+    validations:
+      required: true
+  
+  - type: textarea
+    id: description
+    attributes:
+      label: Tool Description
+      description: What should this tool do?
+    validations:
+      required: true
+  
+  - type: textarea
+    id: input
+    attributes:
+      label: Input Parameters
+      description: What parameters should the tool accept?
+      placeholder: |
+        - puuid: string (required)
+        - region: string (default: euw)
+        - champion: string (optional)
+    validations:
+      required: true
+  
+  - type: textarea
+    id: output
+    attributes:
+      label: Expected Output
+      description: What should the tool return?
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: api-source
+    attributes:
+      label: Data Source
+      options:
+        - Riot API
+        - Data Dragon
+        - Lolalytics (scraping)
+        - League Wiki (scraping)
+        - Multiple sources
+        - Other
+    validations:
+      required: true
+  
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: How would this tool be used? Who would benefit from it?
+    validations:
+      required: true
