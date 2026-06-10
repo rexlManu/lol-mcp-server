@@ -1,6 +1,6 @@
 {
   "name": "lol-mcp-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "MCP server for League of Legends player analysis, match review, and training plans via Riot API",
   "type": "module",
   "main": "dist/index.js",
