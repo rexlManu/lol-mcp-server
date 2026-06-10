@@ -46,7 +46,7 @@ const TEST_CHAMPION = "Jinx";
 
 function isApiUnavailable(err: unknown): boolean {
   const msg = (err as Error).message;
-  return msg.includes("503") || msg.includes("Service Unavailable") || msg.includes("502") || msg.includes("504") || msg.includes("timeout") || msg.includes("ETIMEDOUT");
+  return msg.includes("503") || msg.includes("Service Unavailable") || msg.includes("502") || msg.includes("504") || msg.includes("timeout") || msg.includes("ETIMEDOUT") || msg.includes("408") || msg.includes("Request timeout");
 }
 
 async function getTestPuuid(): Promise<string> {

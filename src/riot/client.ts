@@ -3,6 +3,7 @@ import { getPlatformHost, getRegionalHost } from "./regions.js";
 
 const RATE_LIMIT_RETRIES = 3;
 const RATE_LIMIT_BASE_DELAY_MS = 1000;
+const REQUEST_TIMEOUT_MS = 10000;
 
 export class RiotApiError extends Error {
   constructor(
@@ -22,20 +23,34 @@ async function fetchWithRetry(
   url: string,
   retries = RATE_LIMIT_RETRIES
 ): Promise<Response> {
-  const response = await fetch(url, {
-    headers: { "X-Riot-Token": RIOT_API_KEY },
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-  if (response.status === 429 && retries > 0) {
-    const retryAfter = response.headers.get("Retry-After");
-    const delay = retryAfter
-      ? parseInt(retryAfter, 10) * 1000
-      : RATE_LIMIT_BASE_DELAY_MS * (RATE_LIMIT_RETRIES - retries + 1);
-    await sleep(delay);
-    return fetchWithRetry(url, retries - 1);
+  try {
+    const response = await fetch(url, {
+      headers: { "X-Riot-Token": RIOT_API_KEY },
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (response.status === 429 && retries > 0) {
+      const retryAfter = response.headers.get("Retry-After");
+      const delay = retryAfter
+        ? parseInt(retryAfter, 10) * 1000
+        : RATE_LIMIT_BASE_DELAY_MS * (RATE_LIMIT_RETRIES - retries + 1);
+      await sleep(delay);
+      return fetchWithRetry(url, retries - 1);
+    }
+
+    return response;
+  } catch (err) {
+    clearTimeout(timeoutId);
+    if ((err as Error).name === "AbortError") {
+      throw new RiotApiError(408, `Request timeout: ${url}`);
+    }
+    throw err;
   }
-
-  return response;
 }
 
 async function get<T>(host: string, path: string): Promise<T> {
