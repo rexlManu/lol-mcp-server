@@ -578,7 +578,7 @@ describe("Analysis Tools", () => {
       }
       throw err;
     }
-  }, 90000);
+  });
 
   it("lol_analyze_champion", async () => {
     try {
@@ -603,7 +603,7 @@ describe("Analysis Tools", () => {
       }
       throw err;
     }
-  }, 90000);
+  });
 
   it("lol_get_improvement_tips", async () => {
     try {

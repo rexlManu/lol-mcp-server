@@ -16,7 +16,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
-    "test": "vitest run",
+    "test": "vitest run --exclude tests/tools.test.ts",
+    "test:integration": "vitest run tests/tools.test.ts",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"

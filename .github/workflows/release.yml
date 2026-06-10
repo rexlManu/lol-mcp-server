@@ -35,9 +35,7 @@ jobs:
         run: pnpm typecheck
       
       - name: Run tests
-        run: pnpm test
-        env:
-          RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
+        run: pnpm test -- --exclude tests/tools.test.ts
       
       - name: Build
         run: pnpm build
