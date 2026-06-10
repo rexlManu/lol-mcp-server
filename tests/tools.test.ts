@@ -317,7 +317,7 @@ describe("Champion & Live Tools", () => {
       }
       throw err;
     }
-  }, 10000);
+  });
 
   it("lol_get_featured_games", async () => {
     try {
@@ -376,7 +376,7 @@ describe("League & Clash Tools", () => {
       }
       throw err;
     }
-  }, 10000);
+  });
 
   it("lol_get_league_top", async () => {
     try {
@@ -412,7 +412,7 @@ describe("League & Clash Tools", () => {
       }
       throw err;
     }
-  }, 10000);
+  });
 
   it("lol_get_clash_player", async () => {
     try {
@@ -448,7 +448,7 @@ describe("League & Clash Tools", () => {
       }
       throw err;
     }
-  }, 15000);
+  });
 
   it("lol_get_player_challenges", async () => {
     try {
@@ -468,7 +468,7 @@ describe("League & Clash Tools", () => {
       }
       throw err;
     }
-  }, 15000);
+  });
 
   it("lol_get_server_status", async () => {
     try {
@@ -578,7 +578,7 @@ describe("Analysis Tools", () => {
       }
       throw err;
     }
-  }, 15000);
+  });
 
   it("lol_analyze_champion", async () => {
     try {
@@ -603,7 +603,7 @@ describe("Analysis Tools", () => {
       }
       throw err;
     }
-  }, 15000);
+  });
 
   it("lol_get_improvement_tips", async () => {
     try {
@@ -627,7 +627,7 @@ describe("Analysis Tools", () => {
       }
       throw err;
     }
-  }, 30000);
+  });
 
   it("lol_compare_players", async () => {
     try {
@@ -655,5 +655,5 @@ describe("Analysis Tools", () => {
       }
       throw err;
     }
-  }, 60000);
+  });
 });
