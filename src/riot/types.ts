@@ -30,6 +30,7 @@ export interface RiotLeagueEntry {
 }
 
 export interface RiotMatchParticipant {
+  participantId?: number;
   puuid: string;
   summonerName: string | null;
   riotIdGameName: string;
@@ -73,6 +74,8 @@ export interface RiotMatchParticipant {
   lane: string;
   individualPosition: string;
   teamPosition: string;
+  visionWardsBoughtInGame?: number;
+  detectorWardsPlaced?: number;
 }
 
 export interface RiotMatchTeam {

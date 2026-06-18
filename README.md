@@ -4,7 +4,7 @@
 [![CI](https://github.com/rexlManu/lol-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/rexlManu/lol-mcp-server/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-MCP server exposing 30 tools for League of Legends player analysis, match review, and training-plan generation.
+MCP server exposing 35 tools for League of Legends player analysis, match review, and training-plan generation.
 
 ## Installation
 
@@ -123,7 +123,7 @@ pnpm typecheck    # Type checking
 }
 ```
 
-## Tools (30 total)
+## Tools (35 total)
 
 ### Account & Profile (4)
 
@@ -141,6 +141,16 @@ pnpm typecheck    # Type checking
 | `lol_get_match_history` | Get recent match IDs (with filters) |
 | `lol_get_match_details` | Get detailed match data (batch supported) |
 | `lol_get_match_timeline` | Get minute-by-minute match timeline |
+
+### Match Review (5)
+
+| Tool | Description |
+|------|-------------|
+| `lol_get_player_match_summary` | Compact review stats for one player in one match |
+| `lol_get_player_deaths` | Chronological death timeline with killer, assists, position, and context |
+| `lol_get_player_vision_summary` | Compact vision review with wards, control wards, trinkets, and phase grouping |
+| `lol_get_champion_review` | Multi-match compact review for recent games on one champion |
+| `lol_get_timeline_events` | Filtered timeline events by participant, event type, and time range |
 
 ### Champion & Live (4)
 

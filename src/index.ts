@@ -49,6 +49,14 @@ import {
   comparePlayersTool,
 } from "./tools/analysis.js";
 
+import {
+  getPlayerMatchSummary,
+  getPlayerDeaths,
+  getPlayerVisionSummary,
+  getChampionReview,
+  getTimelineEvents,
+} from "./tools/review.js";
+
 const server = new McpServer({
   name: "league-of-legends-mcp",
   version: "1.0.0",
@@ -85,6 +93,11 @@ const tools = [
   analyzeChampionTool,
   getImprovementTipsTool,
   comparePlayersTool,
+  getPlayerMatchSummary,
+  getPlayerDeaths,
+  getPlayerVisionSummary,
+  getChampionReview,
+  getTimelineEvents,
 ];
 
 for (const tool of tools) {

@@ -4,6 +4,7 @@ import { getRegionMapping } from "../riot/regions.js";
 import type { RiotAccount, RiotSummoner, RiotLeagueEntry, RiotMatch } from "../riot/types.js";
 import type { RiotChampionMastery } from "../riot/types-extra.js";
 import { getCached, setCached, TTL } from "../cache/cache.js";
+import { getAllChampions } from "../static-data/dataDragon.js";
 
 const regionSchema = z
   .string()
@@ -176,25 +177,45 @@ export const getMatchHistory = {
     start: z.number().min(0).default(0).describe("Start index for pagination"),
     queue: z.number().optional().describe("Queue ID filter (420=Solo, 440=Flex, 450=ARAM)"),
     champion: z.number().optional().describe("Champion ID filter"),
+    championId: z.number().optional().describe("Champion ID filter (alias for champion)"),
+    championName: z.string().optional().describe("Champion name filter, e.g. Viktor"),
     startTime: z.number().optional().describe("Epoch timestamp start"),
     endTime: z.number().optional().describe("Epoch timestamp end"),
   }),
   handler: async (args: {
     puuid: string; region: string; count: number; start: number;
-    queue?: number; champion?: number; startTime?: number; endTime?: number;
+    queue?: number; champion?: number; championId?: number; championName?: string; startTime?: number; endTime?: number;
   }) => {
-    const { puuid, region, count, start, queue, champion, startTime, endTime } = args;
+    const { puuid, region, count, start, queue, startTime, endTime } = args;
     const mapping = getRegionMapping(region);
-    const params = new URLSearchParams({ count: String(count), start: String(start) });
+    let champion = args.champion ?? args.championId;
+    if (champion === undefined && args.championName) {
+      const champions = await getAllChampions();
+      const found = Object.values(champions).find((c) => c.name.toLowerCase() === args.championName!.toLowerCase() || c.id.toLowerCase() === args.championName!.toLowerCase());
+      if (!found) throw new Error(`Champion "${args.championName}" not found`);
+      champion = Number(found.key);
+    }
+    const requestCount = champion !== undefined ? Math.min(count * 5, 100) : count;
+    const params = new URLSearchParams({ count: String(requestCount), start: String(start) });
     if (queue !== undefined) params.set("queue", String(queue));
     if (champion !== undefined) params.set("champion", String(champion));
     if (startTime !== undefined) params.set("startTime", String(startTime));
     if (endTime !== undefined) params.set("endTime", String(endTime));
 
-    const matchIds = await getRegional<string[]>(
+    let matchIds = await getRegional<string[]>(
       mapping.regional,
       `/lol/match/v5/matches/by-puuid/${puuid}/ids?${params.toString()}`
     );
+
+    if (champion !== undefined) {
+      const verified: string[] = [];
+      for (const matchId of matchIds) {
+        const match = await getRegional<RiotMatch>(mapping.regional, `/lol/match/v5/matches/${matchId}`);
+        const player = match.info.participants.find((p) => p.puuid === puuid);
+        if (player?.championId === champion) verified.push(matchId);
+      }
+      matchIds = verified.slice(0, count);
+    }
     return { content: [{ type: "text" as const, text: JSON.stringify(matchIds, null, 2) }] };
   },
 };
