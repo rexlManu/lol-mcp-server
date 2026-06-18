@@ -1,6 +1,6 @@
 {
-  "name": "lol-mcp-server",
-  "version": "1.0.11",
+  "name": "@rexlmanu/lol-mcp-server",
+  "version": "1.0.1",
   "description": "MCP server for League of Legends player analysis, match review, and training plans via Riot API",
   "type": "module",
   "main": "dist/index.js",
@@ -36,7 +36,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rexlManu/lol-mcp-server.git"
+    "url": "git+https://github.com/rexlManu/lol-mcp-server.git"
   },
   "bugs": {
     "url": "https://github.com/rexlManu/lol-mcp-server/issues"

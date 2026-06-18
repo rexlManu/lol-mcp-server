@@ -1,6 +1,6 @@
 # League of Legends MCP Server
 
-[![npm version](https://img.shields.io/npm/v/lol-mcp-server.svg)](https://www.npmjs.com/package/lol-mcp-server)
+[![npm version](https://img.shields.io/npm/v/@rexlmanu/lol-mcp-server.svg)](https://www.npmjs.com/package/@rexlmanu/lol-mcp-server)
 [![CI](https://github.com/rexlManu/lol-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/rexlManu/lol-mcp-server/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -11,13 +11,13 @@ MCP server exposing 30 tools for League of Legends player analysis, match review
 ### Via npm (recommended)
 
 ```bash
-npm install -g lol-mcp-server
+npm install -g @rexlmanu/lol-mcp-server
 ```
 
 ### Via npx (no install)
 
 ```bash
-npx lol-mcp-server
+npx @rexlmanu/lol-mcp-server
 ```
 
 ### From source
