@@ -1,4 +1,4 @@
-import { RIOT_API_KEY } from "../config.js";
+import { requireApiKey } from "../config.js";
 import { getPlatformHost, getRegionalHost } from "./regions.js";
 
 const RATE_LIMIT_RETRIES = 3;
@@ -28,7 +28,7 @@ async function fetchWithRetry(
 
   try {
     const response = await fetch(url, {
-      headers: { "X-Riot-Token": RIOT_API_KEY },
+      headers: { "X-Riot-Token": requireApiKey() },
       signal: controller.signal,
     });
 
